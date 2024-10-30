@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待辦事項應用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .todo-item {
+            margin: 5px 0;
+        }
+        .delete-button {
+            margin-left: 10px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>待辦事項</h1>
+    <input type="text" id="todoInput" placeholder="輸入待辦事項...">
+    <button onclick="addTodo()">添加</button>
+    <ul id="todoList"></ul>
+
+    <script>
+        // 定義待辦事項列表
+        let todos = [];
+
+        // 添加待辦事項的函數
+        function addTodo() {
+            let todoInput = document.getElementById('todoInput');
+            let todoText = todoInput.value.trim();
+
+            // 檢查輸入是否為空
+            if (todoText !== "") {
+                // 添加新待辦事項到列表
+                todos.push({ text: todoText, completed: false });
+                todoInput.value = '';
+                renderTodos();
+            }
+        }
+
+        // 渲染待辦事項的函數
+        function renderTodos() {
+            let todoList = document.getElementById('todoList');
+            todoList.innerHTML = '';
+
+            // 遍歷待辦事項列表並創建列表項目
+            for (let i = 0; i < todos.length; i++) {
+                let todo = todos[i];
+
+                let li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <span class="${todo.completed ? 'completed' : ''}" onclick="toggleComplete(${i})">${todo.text}</span>
+                    <span class="delete-button" onclick="deleteTodo(${i})">刪除</span>
+                `;
+                todoList.appendChild(li);
+            }
+        }
+
+        // 切換待辦事項完成狀態的函數
+        function toggleComplete(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos();
+        }
+
+        // 刪除待辦事項的函數
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+
+        // 初始化渲染
+        renderTodos();
+    </script>
+</body>
+</html>

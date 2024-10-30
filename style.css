@@ -1,0 +1,21 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.todo-item {
+    margin: 5px 0;
+}
+
+.delete-button {
+    margin-left: 10px;
+    color: red;
+    cursor: pointer;
+}
